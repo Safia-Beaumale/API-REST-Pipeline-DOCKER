@@ -1,0 +1,40 @@
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github
+
+# Environnements locaux
+.env.local
+.env.*.local
+.env.prod
+
+# Dépendances (reconstruites dans le builder)
+vendor/
+node_modules/
+
+# Runtime Symfony (recréé au démarrage)
+var/
+
+# Tests
+tests/
+phpunit.xml*
+
+# Docker (non nécessaire dans l'image)
+Dockerfile
+.dockerignore
+docker-compose*.yml
+docker/*
+!docker/php/
+!docker/php/opcache.ini
+
+# Documentation
+*.md
+
+# IDE
+.editorconfig
+.idea/
+.vscode/
+*.iml
