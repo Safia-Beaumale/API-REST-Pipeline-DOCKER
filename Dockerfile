@@ -17,6 +17,8 @@ FROM php:8.2-fpm-alpine AS production
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
+RUN apk upgrade --no-cache
+
 RUN apk add --no-cache \
         libpq \
         icu-libs \

@@ -1,7 +1,7 @@
 services:
 
   api:
-    image: ghcr.io/${GITHUB_REPOSITORY:-your-org/your-repo}:${IMAGE_TAG:-latest}
+    image: ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_TAG}
     restart: always
     environment:
       APP_ENV: prod
