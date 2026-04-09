@@ -1,6 +1,5 @@
 services:
 
-  # ── PHP-FPM / Symfony (API) ───────────────────────────────────────────────────
   api:
     build:
       context: .
@@ -13,8 +12,9 @@ services:
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?serverVersion=16&charset=utf8"
       REDIS_URL: "redis://redis:6379"
     volumes:
-      - .:/var/www/html          # hot-reload en dev
-      - /var/www/html/vendor     # vendor reste celui de l'image
+      - .:/var/www/html
+      - /var/www/html/vendor
+      - symfony_cache:/var/www/html/var
     depends_on:
       db:
         condition: service_healthy
@@ -23,7 +23,6 @@ services:
     networks:
       - backend
 
-  # ── Nginx (reverse proxy) ─────────────────────────────────────────────────────
   nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
@@ -37,7 +36,6 @@ services:
     networks:
       - backend
 
-  # ── PostgreSQL ────────────────────────────────────────────────────────────────
   db:
     image: postgres:16-alpine
     restart: unless-stopped
@@ -56,7 +54,6 @@ services:
     networks:
       - backend
 
-  # ── Redis ─────────────────────────────────────────────────────────────────────
   redis:
     image: redis:7-alpine
     restart: unless-stopped
@@ -66,6 +63,7 @@ services:
 
 volumes:
   pgdata:
+  symfony_cache:
 
 networks:
   backend:
